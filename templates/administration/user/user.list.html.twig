@@ -1,0 +1,126 @@
+{% extends 'base.administration.html.twig' %}
+{% block title %}Utilisateurs{% endblock %}
+{% block body %}
+<!-- Content Header (Page header) -->
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0">Utilisateurs</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item">
+                        <i class="fas fas fa-user-graduate ariane-icon-margin"></i>
+                        <a href="{{ path('dashboard') }}" class="ariane-element">Dashboard</a>
+                    </li>
+                    <li class="breadcrumb-item active">Utilisateurs</li>
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <!--Pagination-->
+                    {% include "administration/partials/pagination.html.twig" %}
+                    <!-- ./Pagination -->
+                    <div class="card-header">
+                        <h3 class="card-title">Liste des utilisateurs</h3>
+                        <a href="{{ path('admin_user_new') }}" type="button" class="btn btn-success" style="float: right !important;">
+                            <i class="fas fa-user-plus" style="color: rgba(0, 251, 45, 1) !important; font-weight: bold !important;"></i>&nbsp;&nbsp;AJouter un utilisateur</a>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th style="width: 10px">#</th>
+                                    <th>Email</th>
+                                    <th>Rôles</th>
+                                    <th>État du compte</th>
+                                    <th>Statut</th>
+                                    <th>Inscription</th>
+                                    <th>Désactivation</th>
+                                    <th>Validation CGU</th>
+                                    <th>Validation CGU</th>
+                                    <th>Type d'utilisateur</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for user in users_list %}
+                                    <tr>
+                                        <td>{{ user.id }}.</td>
+                                        <td>{{ user.email }}</td>
+                                        <td>
+                                            {% for key, role in user.roles %}
+                                                {% if key != user.roles|length - 1 %}
+                                                    {{ role }} -
+                                                    {% else %}
+                                                        {{ role }}
+                                                {% endif %}
+                                            {% else %}
+                                                Aucun rôle
+                                            {% endfor %}
+                                        </td>
+                                        <td style="text-align: center !important;">
+                                            {% if user.isVerified == 1 %}
+                                                <i class="fas fa-check-circle fa-2x" style="color: rgba(0, 251, 45, 1) !important"></i>
+                                                {% elseif user.isVerified == 0 %}
+                                                    <i class="fas fa-check-circle fa-2x" style="color: rgba(215, 215, 215, 1) !important"></i>
+                                                    {% else %}
+                                                        Statut inconnu
+                                            {% endif %}
+                                        </td>
+                                        <td>{{ user.status }}</td>
+                                        <td>{{ user.createdAt ? user.createdAt|date('d-m-Y H:i:s') : '' }}</td>
+                                        <td>{{ user.desactivationAt ? user.desactivationAt|date('d-m-Y H:i:s') : '' }}</td>
+                                        <td style="text-align: center !important;">
+                                            {% if user.agreeTerms == 1 %}
+                                                <i class="fas fa-check-circle fa-2x" style="color: rgba(0, 251, 45, 1) !important"></i>
+                                                {% elseif user.agreeTerms == 0 %}
+                                                    <i class="fas fa-check-circle fa-2x" style="color: rgba(215, 215, 215, 1) !important"></i>
+                                                    {% else %}
+                                                        Statut inconnu
+                                            {% endif %}
+                                        </td>
+                                        <td>{{ user.agreeTermsValidAt ? user.agreeTermsValidAt|date('d-m-Y H:i:s') : '' }}</td>
+                                        <td>{{ user.type }}</td>
+                                        <td>
+                                            <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+                                                <a href="{{ path('admin_user_show', {'id': user.id}) }}" type="button" class="btn btn-success"><i class="fas fa-info-circle"></i></a>
+                                                <a href="{{ path('admin_user_edit', {'id': user.id}) }}" type="button" class="btn btn-primary"><i class="fas fa-user-edit"></i></a>
+                                                <a
+                                                    href="{{ path('admin_user_delete', {'id': user.id}) }}" type="button" class="btn btn-danger"
+                                                    onclick="return confirm((`Êtes-vous sûre de vouloir supprimer cet utilisateur : {{ user.getFullName }} ?`))">
+                                                    <i class="fas fa-trash-alt"></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {% else %}
+                                        <tr>
+                                            <td colspan="11">Aucun utilisateur pour l'instant.</td>
+                                        </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                    <!--Pagination-->
+                    {% include "administration/partials/pagination.html.twig" %}
+                    <!-- ./Pagination -->
+                </div>
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+</section>
+{% endblock %}

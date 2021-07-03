@@ -1,0 +1,54 @@
+name: Continous Integration
+
+on: [pull_request]
+
+jobs:
+  pre-check:
+
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v1
+      - name: Validate composer.json and composer.lock
+        run: composer validate
+
+  lint:
+    runs-on: ubuntu-18.04
+    needs: pre-check
+    steps:
+      - uses: actions/checkout@v1
+      - name: Get Composer Cache Directory
+        id: composer-cache
+        run: |
+          echo "::set-output name=dir::$(composer config cache-files-dir)"
+      - uses: actions/cache@v1
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
+      - name: Setup PHP with tools
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress --no-suggest
+      - name: Run PHP CS FIXER
+        if: success() || failure()
+        run: ./vendor/bin/php-cs-fixer fix src --rules='@PSR1,@PSR2,@Symfony,@PhpCsFixer,-concat_space'
+      - name: Twig
+        run: php bin/console lint:twig templates/;
+      - name: YAML
+        run: php bin/console lint:yaml config/ --parse-tags;
+      - name: PHP Code Sniffer
+        run: ./vendor/bin/phpcs;
+      - name: PHP Stan
+        run: ./vendor/bin/phpstan analyse --no-progress;
+      - name: Run PHP Mess Detector
+        if: success() || failure()
+        run: ./vendor/bin/phpmd src ansi controversial,codesize,cleancode,unusedcode,design,naming
+      - name: Run PHP Magical Number Detector
+        if: success() || failure()
+        run: ./vendor/bin/phpmnd src
+      - name: Run TWIGCS
+        if: success() || failure()
+        run: ./vendor/bin/twigcs templates

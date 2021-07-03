@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Admin  REBU VTC | Connexion</title>
+		<!-- Google Font: Source Sans Pro -->
+		<link
+		rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+		<!-- Font Awesome -->
+		<link
+		rel="stylesheet" href="{{ asset('assets/back-office/plugins/fontawesome-free/css/all.min.css') }}">
+		<!-- icheck bootstrap -->
+		<link
+		rel="stylesheet" href="{{ asset('assets/back-office/plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
+		<!-- Theme style -->
+		<link rel="stylesheet" href="{{ asset('assets/back-office/dist/css/adminlte.min.css') }}">
+		{{ encore_entry_link_tags('app') }}
+	</head>
+	<body class="hold-transition login-page">
+		<div
+			class="login-box">
+			<!-- /.login-logo -->
+			<div class="card card-outline card-primary">
+				<div class="card-header text-center">
+					<a href="{{ path('dashboard') }}" class="h3">
+						<b>Admin</b>
+						REBU VTC</a>
+				</div>
+				<div class="text-align-center mt-3">
+					<img src="{{ asset('assets/back-office/dist/img/rebu.png') }}" alt="Admin REBU VTC" class="img60x60">
+				</div>
+				<div class="card-body">
+					<p class="login-box-msg">Saissez vos informations de connexion</p>
+					<form method="post">
+						{% if error %}
+							<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+						{% endif %}
+						{% if app.user %}
+							<div class="mb-3">
+								Êtes-vous
+								<span style="font-weight: bold !important; color: #d19e94;">{{ app.user.username }}</span>
+								?
+								<a href="{{ path('app_logout') }}">Déconnexion</a>
+							</div>
+						{% endif %}
+						<div class="input-group mb-3">
+							<input type="email" class="form-control" value="{{ last_username }}" name="email" id="inputEmail" placeholder="Email" class="form-control" required autofocus>
+							<div class="input-group-append">
+								<div class="input-group-text">
+									<span class="fas fa-envelope"></span>
+								</div>
+							</div>
+						</div>
+						<div class="input-group mb-3">
+							<input type="password" class="form-control" name="password" id="inputPassword" placeholder="Mot de passe" class="form-control" required>
+							<div class="input-group-append">
+								<div class="input-group-text">
+									<span class="fas fa-lock"></span>
+								</div>
+							</div>
+						</div>
+						<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+						<div class="row">
+							<div class="col-12">
+								<div class="icheck-primary">
+									<input type="checkbox" name="_remember_me" id="remember">
+									<label for="remember">
+										Se souvenir de moi
+									</label>
+								</div>
+							</div>
+							<!-- /.col -->
+							<div class="col-12">
+								<button type="submit" class="btn btn-primary btn-block">S'identifier</button>
+							</div>
+							<!-- /.col -->
+						</div>
+					</form>
+					<p class="mb-1">
+						<a href="{{ path('app_admin_forgot_password_request') }}">Mot de passe oublié ?</a>
+					</p>
+				</div>
+				<!-- /.card-body -->
+			</div>
+			<!-- /.card -->
+		</div>
+		<!-- /.login-box -->
+		<!-- jQuery -->
+		<script src="{{ asset('assets/back-office/plugins/jquery/jquery.min.js') }}"></script>
+		<!-- Bootstrap 4 -->
+		<script src="{{ asset('assets/back-office/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+		<!-- AdminLTE App -->
+		<script src="{{ asset('assets/back-office/dist/js/adminlte.js') }}"></script>
+	</body>
+</html>

@@ -1,0 +1,48 @@
+{{ form_start(form) }}
+<div class="card-body">
+	<div class="row">
+		<div class="col-sm-6">
+			<div class="form-group">
+				<label>Email</label>
+				{{ form_row(form.email, {'label': false, 'attr': {'placeholder': false, 'class': 'form-control'}}) }}
+			</div>
+		</div>
+		{% if form.vars.value.id is empty %}
+			<div class="col-sm-6">
+				<div class="form-group">
+					<label>Mot de passe</label>
+					{{ form_row(form.password, {'label': false, 'attr': {'placeholder': 'Mot de passe','class': 'form-control'}}) }}
+				</div>
+			</div>
+		{% endif %}
+	</div>
+	<div class="row">
+		<div class="col-sm-6">
+			<div class="form-group">
+				<label>Compte vérifié ?</label>
+				{{ form_row(form.isVerified, {'label': false, 'attr': {'placeholder': false,'class': 'form-control'}}) }}
+			</div>
+			<div class="form-group">
+				<label>Validaiton CGU ?</label>
+				{{ form_row(form.agreeTerms, {'label': false, 'attr': {'placeholder': false,'class': 'form-control'}}) }}
+			</div>
+			<div class="form-group">
+				<label>Statut</label>
+				{{ form_row(form.status, {'label': false, 'attr': {'placeholder': 'Statut','class': 'form-control'}}) }}
+			</div>
+			<div class="form-group">
+				<label>Type d'utilisateur</label>
+				{{ form_row(form.type, {'label': false, 'attr': {'placeholder': false,'class': 'form-control'}}) }}
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<div class="form-group">
+				<label>Rôles</label>
+				{{ form_row(form.roles, {'label': false, 'attr': {'placeholder': 'Rôles de l\'utoilisateur'}}) }}
+            </div>
+        </div>
+    </div>
+    <div class="card-footer">
+        <button type="submit" class="btn btn-primary">{{ button_label|default('Enregistrer') }}</button>
+    </div>
+{{ form_end(form) }}

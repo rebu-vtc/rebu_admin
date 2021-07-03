@@ -1,0 +1,53 @@
+/* body {
+    background-color: lightgray;
+} */
+
+.user-avatar {
+    top: 0px !important;
+    width: 35px !important; 
+    height: 35px !important;
+}
+
+.user-avatar-link {
+    margin: 0px !important; 
+    padding: 0px !important;
+    color: rgba(0,0,0,.5) !important;
+}
+
+.ariane-element {
+    color: #444 !important;
+}
+
+.ariane-icon-margin {
+    margin-right: 10px !important;
+}
+
+.ariane-element:hover {
+    /* color: brown !important; */
+    color:  #9244ad  !important;
+    opacity: 0.5 !important;
+    cursor: pointer !important;
+}
+
+.dashboard-default {
+    color: #6c757d !important;
+    /* cursor: not-allowed !important; */
+    cursor: text !important;
+    opacity: 0.5;
+    text-decoration: none;
+}
+
+.text-align-center {
+    text-align: center !important;
+}
+
+.img60x60 {
+    width: 60px !important;
+    height: 60px !important;
+}
+
+.customInput {
+    width: 262px !important;
+    border-top-right-radius: 0px !important;
+    border-bottom-right-radius: 0px !important;
+}

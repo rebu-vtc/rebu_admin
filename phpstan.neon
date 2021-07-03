@@ -1,0 +1,21 @@
+parameters:
+    level: max
+    checkGenericClassInNonGenericObjectType: false
+    checkMissingIterableValueType: false
+    paths:
+        - src
+        - tests
+    excludePaths:
+        - bin/*
+        - config/*
+        - templates/*
+        - public/*
+        - translations/*
+        - var/*
+        - vendor/*
+        - src/Kernel.php
+    scanFiles:
+        - vendor/autoload.php
+    scanDirectories:
+        - tests
+    ignoreErrors:

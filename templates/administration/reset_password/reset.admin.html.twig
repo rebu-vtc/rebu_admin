@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Admin  REBU VTC | Mot de passe oublié</title>
+		<!-- Google Font: Source Sans Pro -->
+		<link
+		rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+		<!-- Font Awesome -->
+		<link
+		rel="stylesheet" href="{{ asset('assets/back-office/plugins/fontawesome-free/css/all.min.css') }}">
+		<!-- icheck bootstrap -->
+		<link
+		rel="stylesheet" href="{{ asset('assets/back-office/plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
+		<!-- Theme style -->
+		<link rel="stylesheet" href="{{ asset('assets/back-office/dist/css/adminlte.min.css') }}">
+		{{ encore_entry_link_tags('app') }}
+	</head>
+	<body class="hold-transition login-page">
+		<div
+			class="login-box">
+			<!-- /.login-logo -->
+			<div class="text-align-center alert alert-primary">
+				<p class="login-box-msg">Vous êtes sur le point de réinitialiser votre mot de passe.</p>
+			</div>
+			<div class="card card-outline card-primary">
+				<div class="card-header text-center">
+					<a href="{{ path('dashboard') }}" class="h3">
+						<b>Admin</b>
+						REBU VTC</a>
+				</div>
+				{# <p class="login-box-msg">Réinitialiser votre mot de passe.</p> #}
+				<div class="text-align-center mt-3">
+					<img src="{{ asset('assets/back-office/dist/img/rebu.png') }}" alt="Admin  REBU VTC" class="img60x60">
+				</div>
+				<div class="card-body">
+					{% for flash_error in app.flashes('reset_password_error') %}
+						<div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+					{% endfor %}
+					{{ form_start(resetForm) }}
+					<div class="col-12">
+						<div
+							class="input-group mb-3">
+							{# {{ form_row(resetForm.plainPassword, {'label': false, 'attr': {'placeholder': 'Entrez votre nouveau mot de passe','class': 'form-control customInput'}}) }} #}
+							{{ form_row(resetForm.plainPassword.first) }}
+							<div class="input-group-append">
+								<div class="input-group-text">
+									<span class="fas fa-lock"></span>
+								</div>
+							</div>
+						</div>
+						<div
+							class="input-group mb-3">
+							{# {{ form_row(resetForm.plainPassword, {'label': false, 'attr': {'placeholder': 'Entrez votre nouveau mot de passe','class': 'form-control customInput'}}) }} #}
+							{{ form_row(resetForm.plainPassword.second) }}
+							<div class="input-group-append">
+								<div class="input-group-text">
+									<span class="fas fa-lock"></span>
+								</div>
+							</div>
+						</div>
+						<!-- /.col -->
+						<button type="submit" class="btn btn-primary btn-block">Réinitialiser mon mot de passe</button>
+					</div>
+					<!-- /.col -->
+					{{ form_end(resetForm) }}
+				</div>
+			</div>
+			<!-- /.card-body -->
+		</div>
+		<!-- /.card -->
+	</body>
+</html></div><!-- /.login-box --><!-- jQuery --><script src="{{ asset('assets/back-office/plugins/jquery/jquery.min.js') }}"></script><!-- Bootstrap 4 --><script src="{{ asset('assets/back-office/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script><!-- AdminLTE App --><script src="{{ asset('assets/back-office/dist/js/adminlte.js') }}"></script></body></html>

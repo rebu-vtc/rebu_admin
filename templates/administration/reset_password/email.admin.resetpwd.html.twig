@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta
+		charset="UTF-8">
+		{# <title>Réinitialiser votre mot de passe</title> #}
+		{{ encore_entry_link_tags('app') }}
+	</head>
+	<body>
+		<div style="
+				            background-image: url('https://cdn.pixabay.com/photo/2018/03/22/02/37/email-3249062_960_720.png');
+				            background-repeat: no-repeat;
+				            width: 800px !important;
+				            height: 650px !important;
+				            text-align: center !important;">
+			<br>
+			{# <img src="https://festimove.com/css/image/movieCatalogLogo.png" alt="MovieCatalog"> #}
+			<br>
+			<div
+				style="
+					                width: 85% !important;
+					                padding: 15px !important;
+					                background-color: rgba(0, 0, 0, 0.42);
+					                margin: auto !important;
+					                ">
+				{# <h2 
+				                style="
+				                    font-size: 18px !important;
+				                    font-weight: bold !important;
+				                    color: #f1f1f1f1 !important;
+				                    background-color: transparent !important;
+				                    background-image: none !important">
+				                Réinitialiser votre mot de passe</h2> #}
+				<p style="
+						                    font-size: 1.5em !important;
+						                    color: #f1f1f1f1 !important;
+						                    background-color: transparent;
+						                    background-image: none !important">
+					Bonjour,<br>
+					Pour réinitialiser votre mot de passe, merci de cliquer sur le lien suivant :
+					<br><br>
+					<a style="
+						                        outline: none !important;
+						                        text-decoration: none !important;
+						                        display: inline-block !important;
+						                        width: auto !important;
+						                        height: 60px !important;
+						                        padding: 10px !important;
+						                        text-align: center !important;
+						                        line-height: 50px !important;
+						                        word-spacing: 1px !important;
+						                        letter-spacing: 1px !important;
+						                        color: #f1f1f1 !important;
+						                        background-color: #2E3192 !important;
+						                        text-decoration: none;
+						                        border-raduis: 5px !important;
+						                        border-color: none !important;
+						                        " href="{{ url('app_admin_reset_password', {token: resetToken.token}) }}">Je réinitialise mon mot de passe
+					</a>
+					<br>
+					Ce lien expire dans
+					{{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }}.
+				</p>
+				<p style="font-size: 1.5em !important; color: #f1f1f1f1 !important; background-color: transparent; background-image: none !important">
+					REBU VTC !
+				</p>
+			</div>
+		</div>
+	</body>
+</html>
