@@ -23,7 +23,7 @@ class User implements UserInterface
      *
      * @var int
      */
-    private $objectId;
+    private $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
@@ -136,7 +136,7 @@ class User implements UserInterface
 
     public function getId(): ?int
     {
-        return $this->objectId;
+        return $this->id;
     }
 
     public function getEmail(): string

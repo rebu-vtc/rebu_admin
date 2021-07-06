@@ -21,7 +21,7 @@ class ResetPasswordRequest implements ResetPasswordRequestInterface
      *
      * @var int
      */
-    private $objectId;
+    private $id;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class)
@@ -42,7 +42,7 @@ class ResetPasswordRequest implements ResetPasswordRequestInterface
      */
     public function getId(): ?int
     {
-        return $this->objectId;
+        return $this->id;
     }
 
     /**
