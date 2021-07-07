@@ -7,8 +7,13 @@ use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
-
+use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 /**
+ * @ApiResource(
+ *     normalizationContext={"groups"={"user:read"}},
+ *     denormalizationContext={"groups"={"user:write"}}
+ * )
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
  * @ORM\HasLifecycleCallbacks()
@@ -20,6 +25,7 @@ class User implements UserInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(name="id",type="integer")
+     * @Groups("user:read", "user:write")
      *
      * @var int
      */
@@ -27,6 +33,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Groups("user:read", "user:write")
      *
      * @var string
      */
@@ -34,6 +41,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="json")
+     * @Groups("user:read", "user:write")
      *
      * @var array
      */
@@ -47,6 +55,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="boolean")
+     * @Groups("user:read", "user:write")
      *
      * @var bool
      */
@@ -55,38 +64,50 @@ class User implements UserInterface
     /**
      * @var null|\DateTimeInterface
      * @ORM\Column(type="datetime", nullable=true)
+     * @Groups("user:read", "user:write")
      */
     private $createdAt;
 
     /**
      * @var null|\DateTimeInterface
      * @ORM\Column(type="datetime", nullable=true)
+     * @Groups("user:read", "user:write")
      */
     private $desactivationAt;
 
     /**
      * @var bool
+     * @Groups("user:read", "user:write")
      * @ORM\Column(type="boolean")
      */
     private $agreeTerms;
 
     /**
      * @var null|\DateTimeInterface
+     * @Groups("user:read", "user:write")
      * @ORM\Column(name="agreeTermsValidatedAt", type="datetime", nullable=true)
      */
     private $agreeTermsValidAt;
 
     /**
      * @var null|int
+     * @Groups("user:read", "user:write")
      * @ORM\Column(type="integer", nullable=true)
      */
     private $status;
 
     /**
      * @var string
+     * @Groups("user:read", "user:write")
      * @ORM\Column(type="string", length=45)
      */
     private $type;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Personnel::class, inversedBy="user", cascade={"persist", "remove"})
+     * @Groups("user:read", "user:write")
+     */
+    private $personnel;
 
     // Avatar à ajouter une fois le système de gestion de fichier sera implémenté.
     public function __construct()
@@ -294,6 +315,18 @@ class User implements UserInterface
     public function setType(string $type): self
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    public function getPersonnel(): ?Personnel
+    {
+        return $this->personnel;
+    }
+
+    public function setPersonnel(?Personnel $personnel): self
+    {
+        $this->personnel = $personnel;
 
         return $this;
     }
