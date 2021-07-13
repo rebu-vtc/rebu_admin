@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -109,10 +111,33 @@ class User implements UserInterface
      */
     private $personnel;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Message::class, mappedBy="createdBy")
+     */
+    private $messages;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Vehicle::class, mappedBy="driver")
+     */
+    private $vehicles;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Company::class, inversedBy="users")
+     */
+    private $company;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Trip::class, mappedBy="driver")
+     */
+    private $trips;
+
     // Avatar à ajouter une fois le système de gestion de fichier sera implémenté.
     public function __construct()
     {
         $this->email = '';
+        $this->messages = new ArrayCollection();
+        $this->vehicles = new ArrayCollection();
+        $this->trips = new ArrayCollection();
     }
 
     /**
@@ -327,6 +352,105 @@ class User implements UserInterface
     public function setPersonnel(?Personnel $personnel): self
     {
         $this->personnel = $personnel;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Message[]
+     */
+    public function getMessages(): Collection
+    {
+        return $this->messages;
+    }
+
+    public function addMessage(Message $message): self
+    {
+        if (!$this->messages->contains($message)) {
+            $this->messages[] = $message;
+            $message->setCreatedBy($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMessage(Message $message): self
+    {
+        if ($this->messages->removeElement($message)) {
+            // set the owning side to null (unless already changed)
+            if ($message->getCreatedBy() === $this) {
+                $message->setCreatedBy(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Vehicle[]
+     */
+    public function getVehicles(): Collection
+    {
+        return $this->vehicles;
+    }
+
+    public function addVehicle(Vehicle $vehicle): self
+    {
+        if (!$this->vehicles->contains($vehicle)) {
+            $this->vehicles[] = $vehicle;
+            $vehicle->addDriver($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVehicle(Vehicle $vehicle): self
+    {
+        if ($this->vehicles->removeElement($vehicle)) {
+            $vehicle->removeDriver($this);
+        }
+
+        return $this;
+    }
+
+    public function getCompany(): ?Company
+    {
+        return $this->company;
+    }
+
+    public function setCompany(?Company $company): self
+    {
+        $this->company = $company;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Trip[]
+     */
+    public function getTrips(): Collection
+    {
+        return $this->trips;
+    }
+
+    public function addTrip(Trip $trip): self
+    {
+        if (!$this->trips->contains($trip)) {
+            $this->trips[] = $trip;
+            $trip->setDriver($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTrip(Trip $trip): self
+    {
+        if ($this->trips->removeElement($trip)) {
+            // set the owning side to null (unless already changed)
+            if ($trip->getDriver() === $this) {
+                $trip->setDriver(null);
+            }
+        }
 
         return $this;
     }

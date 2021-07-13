@@ -4,8 +4,10 @@ namespace App\Entity;
 
 use App\Repository\FileRepository;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiResource;
 
 /**
+ * @ApiResource()
  * @ORM\Entity(repositoryClass=FileRepository::class)
  */
 class File
@@ -37,10 +39,6 @@ class File
      */
     private $type;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Personnel::class)
-     */
-    private $person;
 
     public function getId(): ?int
     {
@@ -91,18 +89,6 @@ class File
     public function setType(string $type): self
     {
         $this->type = $type;
-
-        return $this;
-    }
-
-    public function getPerson(): ?Personnel
-    {
-        return $this->person;
-    }
-
-    public function setPerson(?Personnel $person): self
-    {
-        $this->person = $person;
 
         return $this;
     }

@@ -58,6 +58,12 @@ class Personnel
      */
     private $user;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Address::class, inversedBy="personnel", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $address;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -153,6 +159,18 @@ class Personnel
         }
 
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getAddress(): ?Address
+    {
+        return $this->address;
+    }
+
+    public function setAddress(Address $address): self
+    {
+        $this->address = $address;
 
         return $this;
     }
