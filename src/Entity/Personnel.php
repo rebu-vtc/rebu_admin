@@ -3,8 +3,12 @@
 namespace App\Entity;
 
 use App\Repository\PersonnelRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\HttpFoundation\File\File;
+
 
 /**
  * @ORM\Entity(repositoryClass=PersonnelRepository::class)
@@ -49,11 +53,6 @@ class Personnel
     private $idNumber;
 
     /**
-     * @ORM\OneToOne(targetEntity=File::class, cascade={"persist", "remove"})
-     */
-    private $idCard;
-
-    /**
      * @ORM\OneToOne(targetEntity=User::class, mappedBy="personnel", cascade={"persist", "remove"})
      */
     private $user;
@@ -63,6 +62,16 @@ class Personnel
      * @ORM\JoinColumn(nullable=false)
      */
     private $address;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Resource::class, mappedBy="personnel", cascade={"persist", "remove", "merge"})
+     */
+    private $idcard;
+
+    public function __construct()
+    {
+        $this->idcard = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -129,18 +138,6 @@ class Personnel
         return $this;
     }
 
-    public function getIdCard(): ?File
-    {
-        return $this->idCard;
-    }
-
-    public function setIdCard(?File $idCard): self
-    {
-        $this->idCard = $idCard;
-
-        return $this;
-    }
-
     public function getUser(): ?User
     {
         return $this->user;
@@ -171,6 +168,36 @@ class Personnel
     public function setAddress(Address $address): self
     {
         $this->address = $address;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Resource[]
+     */
+    public function getIdcard(): Collection
+    {
+        return $this->idcard;
+    }
+
+    public function addIdcard(Resource $idcard): self
+    {
+        if (!$this->idcard->contains($idcard)) {
+            $this->idcard[] = $idcard;
+            $idcard->setPersonnel($this);
+        }
+
+        return $this;
+    }
+
+    public function removeIdcard(Resource $idcard): self
+    {
+        if ($this->idcard->removeElement($idcard)) {
+            // set the owning side to null (unless already changed)
+            if ($idcard->getPersonnel() === $this) {
+                $idcard->setPersonnel(null);
+            }
+        }
 
         return $this;
     }

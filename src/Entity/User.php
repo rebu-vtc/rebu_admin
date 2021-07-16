@@ -19,6 +19,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
  * @ORM\HasLifecycleCallbacks()
+ * 
  */
 class User implements UserInterface
 {
@@ -206,6 +207,25 @@ class User implements UserInterface
     {
         return (string) $this->email;
     }
+
+    public function getFullName(): string
+    {
+        $userInfo = $this->personnel;
+        $name = '';
+        if ($userInfo) {
+            $firstName = $userInfo->getFirstName();
+            $lastName = $userInfo->getLastName();
+        
+            if ($lastName) {
+                $name = $lastName;
+            }
+            if ($firstName) {
+                $name = ($name) ? $lastName . ' ' .$firstName : $firstName;
+            }
+        }
+
+        return $name;
+    } 
 
     /**
      * @see UserInterface

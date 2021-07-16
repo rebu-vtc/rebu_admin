@@ -24,16 +24,9 @@ class AdminEditUserType extends FormConfig
                 'expanded' => true,
                 'choices' => [
                     'Utilisateur' => 'ROLE_USER',
-                    'Élève' => 'ROLE_STUDENT',
-                    'Parent' => 'ROLE_PARENT',
                     'Administrateur' => 'ROLE_ADMIN',
-                    'Secrétaire' => 'ROLE_SECRETARY',
-                    'Directeur' => 'ROLE_DIRECTOR',
-                    'CPE' => 'ROLE_CPE',
-                    'Administration' => 'ROLE_ADMINISTRATION',
-                    'Professeur' => 'ROLE_PROFESSOR',
-                    'Intervenant' => 'ROLE_CONTRIBUTOR',
-                    'Autre' => 'ROLE_OTHER',
+                    'Conducteur(rice)' => 'ROLE_DRIVER',
+                    'Client' => 'ROLE_CLIENT'
                 ],
             ])
             // ->add('password', PasswordType::class, $this->getFormConf(true, false, false))
@@ -68,18 +61,6 @@ class AdminEditUserType extends FormConfig
                     'Inconnu' => 0,
                     'Actif' => 1,
                     'Inactif' => 2,
-                    // à compléter
-                ],
-            ])
-            ->add('type', ChoiceType::class, [
-                'placeholder' => false,
-                'label' => false,
-                'required' => true,
-                'choices' => [
-                    'Parent' => 'Parent',
-                    'Élève' => 'Student',
-                    'Administraeur' => 'Administrator',
-                    'Administration' => 'Administration',
                     // à compléter
                 ],
             ])

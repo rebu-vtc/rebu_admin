@@ -81,7 +81,6 @@ class LoginAuthenticator extends AbstractFormLoginAuthenticator implements Passw
         }
 
         $user = $this->entityManager->getRepository(User::class)->findOneBy(['email' => $credentials['email']]);
-
         if (!$user) {
             // fail authentication with a custom error
             throw new CustomUserMessageAuthenticationException('Email could not be found.');
@@ -109,6 +108,7 @@ class LoginAuthenticator extends AbstractFormLoginAuthenticator implements Passw
     {
         $targetPath = $this->getTargetPath($request->getSession(), $providerKey);
         if ($targetPath) {
+        
             return new RedirectResponse($targetPath);
         }
 

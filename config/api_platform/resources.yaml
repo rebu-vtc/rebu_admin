@@ -5,6 +5,3 @@ resources:
     App\Entity\Personnel:
         attributes:                          # optional
             pagination_items_per_page: 25    # optional
-    App\Entity\File:
-        attributes:                          # optional
-            pagination_items_per_page: 25    # optional

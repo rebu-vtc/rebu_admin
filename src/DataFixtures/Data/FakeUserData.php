@@ -22,7 +22,7 @@ class FakeUserData
         ],
         [
             'id' => 2,
-            'email' => 'testbh@gmail.com',
+            'email' => 'ttestbh@gmail.com',
             'password' => 'adminPassword',
             'roles' => ['ROLE_ADMIN'],
             'isVerify' => true,

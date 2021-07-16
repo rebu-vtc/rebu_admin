@@ -1,51 +1,100 @@
 {% extends 'base.administration.html.twig' %}
 {% form_theme form 'bootstrap_4_layout.html.twig' %}
-{% block title %}Utilisateur{% endblock %}
-{% block stylesheets %}
+{% block title %}Utilisateur
 {% endblock %}
+{% block stylesheets %}{% endblock %}
 {% block body %}
-    <!-- Content Header (Page header) -->
-    <div class="content-header">
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1 class="m-0">Utilisateur</h1>
-                </div><!-- /.col -->
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item">
-                            <i class="fas fa-user-shield ariane-icon-margin"></i>
-                            <a href="{{ path('dashboard') }}" class="ariane-element">Dashboard</a>
-                        </li>
-                        <li class="breadcrumb-item active">Ajouter un utilisateur</li>
-                    </ol>
-                </div><!-- /.col -->
-            </div><!-- /.row -->
-        </div><!-- /.container-fluid -->
-    </div>
-    <!-- /.content-header -->
-    <section class="content">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">Ajouter un utilisateur</h3>
-                            <a href="{{ path('admin_users_list') }}" type="button" class="btn btn-success" style="float: right !important;">
-                                <i class="fas fa-arrow-circle-left" style="color: rgba(0, 251, 45, 1) !important; font-weight: bold !important;"></i>&nbsp;&nbsp;Retour à la liste des utilisateurs</a>
-                        </div>
-                        <!-- /.card-header -->
-                        {{ include("administration/user/_user.form.html.twig") }}
-                        <!-- /.card-body -->
-                    </div>
-                </div>
-                <!-- /.col -->
-                <div class="col-md-6">
-                </div>
-            </div>
-            <!-- /.row -->
-        </div>
-    </section>
+	<!-- Content Header (Page header) -->
+	<div class="content-header">
+		<div class="container-fluid">
+			<div class="row mb-2">
+				<div class="col-sm-6">
+					<h1 class="m-0">Utilisateur</h1>
+				</div>
+				<!-- /.col -->
+				<div class="col-sm-6">
+					<ol class="breadcrumb float-sm-right">
+						<li class="breadcrumb-item">
+							<i class="fas fa-user-shield ariane-icon-margin"></i>
+							<a href="{{ path('dashboard') }}" class="ariane-element">Dashboard</a>
+						</li>
+						<li class="breadcrumb-item active">Ajouter un utilisateur</li>
+					</ol>
+				</div>
+				<!-- /.col -->
+			</div>
+			<!-- /.row -->
+		</div>
+		<!-- /.container-fluid -->
+	</div>
+	<!-- /.content-header -->
+	<section class="content">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="card">
+						<div class="card-header">
+							<h3 class="card-title">Ajouter un utilisateur</h3>
+							<a href="{{ path('admin_users_list') }}" type="button" class="btn btn-success" style="float: right !important;">
+								<i class="fas fa-arrow-circle-left" style="color: rgba(0, 251, 45, 1) !important; font-weight: bold !important;"></i>&nbsp;&nbsp;Retour à la liste des utilisateurs</a>
+						</div>
+						<!-- /.card-header -->
+						{{ include("administration/user/_user.form.html.twig") }}
+						<!-- /.card-body -->
+					</div>
+				</div>
+				<!-- /.col -->
+				<div class="col-md-6"></div>
+			</div>
+			<!-- /.row -->
+		</div>
+	</section>
 {% endblock %}
 {% block javascripts %}
+	{{ parent() }}
+
+	<script>
+		// AFFICHAGE DES NOM DES FICHIER UPLOADE
+$(document).ready(function () {
+var id = $('.custom-file input').attr('id');
+$('#' + id).on('change', function () {
+var fileName = $(this).val();
+fileName = fileName.replace('C:\\fakepath\\', " ");
+$(this).next('.custom-file-label').html(fileName);
+});
+});
+	</script>
+	<script type="text/javascript">
+		$('.image-collection').collection({
+up: '<a href="#" class="btn-collection btn-sm text-primary" title="Move up"><i class="fas fa-caret-up"></i></a>',
+down: '<a href="#" class="btn-collection btn-sm text-primary" title="Move down"><i class="fas fa-caret-down"></i></a>',
+add: '<a href="#" class="btn-collection btn btn-sm btn-secondary" title="Add"><i class="fas fa-plus"> Ajouter</i></a>',
+remove: '<a href="#" class="btn-collection btn-sm text-danger" title="Delete"><i class="fas fa-trash-alt"></i></a>',
+allow_duplicate: false,
+after_add: function (collection, element) {
+var id = $('.custom-file input').attr('id');
+console.log(id);
+var index = element.index();
+var idArray = id.split("_");
+var newId = '';
+for (var i = 0; i < idArray.length; i++) {
+var splitedId = idArray[i];
+
+if (isNaN(splitedId)) {
+newId = (newId == '') ? splitedId : newId + '_' + splitedId;
+} else {
+newId = newId + '_' + index;
+}
+
+}
+console.log(newId);
+$('#' + newId).on('change', function () {
+var fileName = $(this).val();
+fileName = fileName.replace('C:\\fakepath\\', " ");
+console.log(fileName)
+$(this).next('.custom-file-label').html(fileName);
+});
+}
+});
+	</script>
 {% endblock %}

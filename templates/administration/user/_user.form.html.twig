@@ -1,5 +1,22 @@
 {{ form_start(form) }}
+{% form_theme form.personnel.idcard 'administration/jquery.collection.html.twig' %}
 <div class="card-body">
+	<div class="row">
+		<div class="col-sm-6">
+			<div class="form-group">
+				<label>Prénom</label>
+				{{ form_row(form.personnel.firstName, {'label': false, 'attr': {'placeholder': false, 'class': 'form-control'}}) }}
+			</div>
+		</div>
+		{% if form.vars.value.id is empty %}
+			<div class="col-sm-6">
+				<div class="form-group">
+					<label>Nom</label>
+					{{ form_row(form.personnel.lastName, {'label': false, 'attr': {'placeholder': false,'class': 'form-control'}}) }}
+				</div>
+			</div>
+		{% endif %}
+	</div>
 	<div class="row">
 		<div class="col-sm-6">
 			<div class="form-group">
@@ -11,30 +28,63 @@
 			<div class="col-sm-6">
 				<div class="form-group">
 					<label>Mot de passe</label>
-					{{ form_row(form.password, {'label': false, 'attr': {'placeholder': 'Mot de passe','class': 'form-control'}}) }}
+					{{ form_row(form.password, {'label': false, 'attr': {'placeholder': false,'class': 'form-control'}}) }}
 				</div>
 			</div>
 		{% endif %}
 	</div>
+
+	<div class="row">
+		<div class="col-sm-6">
+			<div class="row">
+				<div class="col-sm-4">
+					<div class="form-group">
+						<label>Date de naissance</label>
+						{{ form_row(form.personnel.dob, {'label': false}) }}
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<div class="form-group">
+						<label>N° de carte Identité</label>
+						{{ form_row(form.personnel.idNumber, {'label': false, 'attr': {'placeholder': false}}) }}
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<div class="row">
+
+				<div class="col-sm-4">
+					<div class="form-group">
+						<label>Compte vérifié ?</label>
+						{{ form_row(form.isVerified, {'label': false, 'attr': {'placeholder': false,'class': 'form-control'}}) }}
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<div class="form-group">
+						<label>Validaiton CGU ?</label>
+						{{ form_row(form.agreeTerms, {'label': false, 'attr': {'placeholder': false,'class': 'form-control'}}) }}
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<div class="form-group">
+						<label>Statut</label>
+						{{ form_row(form.status, {'label': false, 'attr': {'placeholder': 'Statut','class': 'form-control'}}) }}
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
 	<div class="row">
 		<div class="col-sm-6">
 			<div class="form-group">
-				<label>Compte vérifié ?</label>
-				{{ form_row(form.isVerified, {'label': false, 'attr': {'placeholder': false,'class': 'form-control'}}) }}
-			</div>
-			<div class="form-group">
-				<label>Validaiton CGU ?</label>
-				{{ form_row(form.agreeTerms, {'label': false, 'attr': {'placeholder': false,'class': 'form-control'}}) }}
-			</div>
-			<div class="form-group">
-				<label>Statut</label>
-				{{ form_row(form.status, {'label': false, 'attr': {'placeholder': 'Statut','class': 'form-control'}}) }}
-			</div>
-			<div class="form-group">
-				<label>Type d'utilisateur</label>
-				{{ form_row(form.type, {'label': false, 'attr': {'placeholder': false,'class': 'form-control'}}) }}
+				<label>Ajouter carte identité</label>
+				{{ form_row(form.personnel.idcard, {'label': false}) }}
 			</div>
 		</div>
+
 		<div class="col-sm-6">
 			<div class="form-group">
 				<label>Rôles</label>

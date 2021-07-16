@@ -76,15 +76,7 @@ class Vehicle
      */
     private $isAvaliable;
 
-    /**
-     * @ORM\OneToOne(targetEntity=File::class, inversedBy="vehicle", cascade={"persist", "remove"})
-     */
-    private $carteGrise;
-
-    /**
-     * @ORM\OneToOne(targetEntity=File::class, cascade={"persist", "remove"})
-     */
-    private $vtcCard;
+   
 
     public function __construct()
     {
@@ -240,27 +232,4 @@ class Vehicle
         return $this;
     }
 
-    public function getCarteGrise(): ?File
-    {
-        return $this->carteGrise;
-    }
-
-    public function setCarteGrise(?File $carteGrise): self
-    {
-        $this->carteGrise = $carteGrise;
-
-        return $this;
-    }
-
-    public function getVtcCard(): ?File
-    {
-        return $this->vtcCard;
-    }
-
-    public function setVtcCard(?File $vtcCard): self
-    {
-        $this->vtcCard = $vtcCard;
-
-        return $this;
-    }
 }
