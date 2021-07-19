@@ -1,5 +1,6 @@
 {{ form_start(form) }}
 {% form_theme form.personnel.idcard 'administration/jquery.collection.html.twig' %}
+{# {% form_theme form.personnel.address 'administration/jquery.collection.html.twig' %} #}
 <div class="card-body">
 	<div class="row">
 		<div class="col-sm-6">
@@ -54,7 +55,6 @@
 		</div>
 		<div class="col-sm-6">
 			<div class="row">
-
 				<div class="col-sm-4">
 					<div class="form-group">
 						<label>Compte vérifié ?</label>
@@ -92,7 +92,19 @@
             </div>
         </div>
     </div>
-    <div class="card-footer">
-        <button type="submit" class="btn btn-primary">{{ button_label|default('Enregistrer') }}</button>
-    </div>
-{{ form_end(form) }}
+	<div class="row">
+		{# <div class="col-sm-6">
+				<label>Address</label>
+				{{ form_row(form.personnel.address, {'label': false}) }}
+		</div> #}
+		<div class="col-sm-6">
+			<div class="form-group">
+				<label>Facebook Token</label>
+				{{ form_row(form.personnel.facebookToken, {'label': false}) }}
+			</div>
+		</div>
+	</div>
+	<div class="card-footer">
+		<button type="submit" class="btn btn-primary">{{ button_label|default('Enregistrer') }}</button>
+	</div>
+	{{ form_end(form) }}

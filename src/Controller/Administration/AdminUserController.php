@@ -58,21 +58,17 @@ class AdminUserController extends DefaultController
         $user = new User();
         $form = $this->createForm(AdminUserType::class, $user);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $hash = $encoder->encodePassword($user, $user->getPassword());
             $user->setPassword($hash);
-
             $this->manager->persist($user);
             $this->manager->flush();
-
             $this->addFlash('success', "L'utilisateur a été ajouté avec succès");
 
             return $this->redirectToRoute('admin_user_show', [
                 'id' => $user->getId(),
             ]);
         }
-
         $this->addFlash('danger', "L'utilisateur n'a pas été ajouté");
 
         return $this->render('administration/user/user.create.html.twig', [

@@ -100,13 +100,6 @@ class User implements UserInterface
     private $status;
 
     /**
-     * @var string
-     * @Groups("user:read", "user:write")
-     * @ORM\Column(type="string", length=45)
-     */
-    private $type;
-
-    /**
      * @ORM\OneToOne(targetEntity=Personnel::class, inversedBy="user", cascade={"persist", "remove"})
      * @Groups("user:read", "user:write")
      */
@@ -348,18 +341,6 @@ class User implements UserInterface
     public function setStatus(?int $status): self
     {
         $this->status = $status;
-
-        return $this;
-    }
-
-    public function getType(): ?string
-    {
-        return $this->type;
-    }
-
-    public function setType(string $type): self
-    {
-        $this->type = $type;
 
         return $this;
     }

@@ -7,7 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
-use Symfony\Component\HttpFoundation\File\File;
+
 
 
 /**
@@ -57,20 +57,24 @@ class Personnel
      */
     private $user;
 
-    /**
-     * @ORM\OneToOne(targetEntity=Address::class, inversedBy="personnel", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $address;
-
-    /**
+     /**
      * @ORM\OneToMany(targetEntity=Resource::class, mappedBy="personnel", cascade={"persist", "remove", "merge"})
      */
     private $idcard;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Address::class, mappedBy="personnel", cascade={"persist", "remove", "merge"})
+     */
+    private $address;
+
+
+
     public function __construct()
     {
+        dump($this->address);
         $this->idcard = new ArrayCollection();
+        $this->address = new ArrayCollection();
+        
     }
 
     public function getId(): ?int
@@ -160,18 +164,6 @@ class Personnel
         return $this;
     }
 
-    public function getAddress(): ?Address
-    {
-        return $this->address;
-    }
-
-    public function setAddress(Address $address): self
-    {
-        $this->address = $address;
-
-        return $this;
-    }
-
     /**
      * @return Collection|Resource[]
      */
@@ -196,6 +188,38 @@ class Personnel
             // set the owning side to null (unless already changed)
             if ($idcard->getPersonnel() === $this) {
                 $idcard->setPersonnel(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Address[]
+     */
+    public function getAddress(): Collection
+    {
+        return $this->address;
+    }
+
+    public function addAddress(Address $address): self
+    {
+        dump('dsqfq');
+        die;
+        if (!$this->address->contains($address)) {
+            $this->address[] = $address;
+            $address->setPersonnel($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAddress(Address $address): self
+    {
+        if ($this->address->removeElement($address)) {
+            // set the owning side to null (unless already changed)
+            if ($address->getPersonnel() === $this) {
+                $address->setPersonnel(null);
             }
         }
 

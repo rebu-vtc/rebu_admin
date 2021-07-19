@@ -96,5 +96,13 @@ $(this).next('.custom-file-label').html(fileName);
 });
 }
 });
+
+$('.address-collection').collection({
+up: '<a href="#" class="btn-collection btn-sm text-primary" title="Move up"><i class="fas fa-caret-up"></i></a>',
+down: '<a href="#" class="btn-collection btn-sm text-primary" title="Move down"><i class="fas fa-caret-down"></i></a>',
+add: '<a href="#" class="btn-collection btn btn-sm btn-secondary" title="Add"><i class="fas fa-plus"> Ajouter</i></a>',
+remove: '<a href="#" class="btn-collection btn-sm text-danger" title="Delete"><i class="fas fa-trash-alt"></i></a>',
+allow_duplicate: false
+});
 	</script>
 {% endblock %}

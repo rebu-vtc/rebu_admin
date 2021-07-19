@@ -50,7 +50,7 @@ class Address
     private $ville;
 
     /**
-     * @ORM\OneToOne(targetEntity=Personnel::class, mappedBy="address", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity=Personnel::class, inversedBy="address")
      */
     private $personnel;
 
@@ -136,13 +136,8 @@ class Address
         return $this->personnel;
     }
 
-    public function setPersonnel(Personnel $personnel): self
+    public function setPersonnel(?Personnel $personnel): self
     {
-        // set the owning side of the relation if necessary
-        if ($personnel->getAddress() !== $this) {
-            $personnel->setAddress($this);
-        }
-
         $this->personnel = $personnel;
 
         return $this;

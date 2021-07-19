@@ -34,7 +34,21 @@ class PersonnelType extends AbstractType
                     'class' => "image-collection",
                 ]
             ])
-            ->add('address', AddressType::class)
+            /* ->add('address', CollectionType::class, [
+                'entry_type'   => AddressType::class,
+                'entry_options'  => [
+                    'label' => false,
+                ],
+                'mapped' => false,
+                'allow_add'    => true,
+                'allow_delete' => true,
+                'prototype'    => true,
+                'by_reference' => false,
+                'required' => false,
+                'attr'         => [
+                    'class' => "address-collection",
+                ]
+            ]) */
         ;
     }
 

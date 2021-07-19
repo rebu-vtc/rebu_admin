@@ -64,9 +64,7 @@ class AdminEditUserType extends FormConfig
                     // à compléter
                 ],
             ])
-            // ->add('student')
-            // ->add('parentStudent')
-            // ->add('admin')
+            ->add('personnel', PersonnelType::class)
         ;
     }
 
