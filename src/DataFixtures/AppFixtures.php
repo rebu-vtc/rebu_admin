@@ -41,8 +41,8 @@ class AppFixtures extends Fixture
                 ->setIsVerified($user['isVerify'])
                 ->setStatus($user['status'])
                 ->setAgreeTerms($user['agreeTerms'])
-                ->setType($user['type'])
                 ->setRoles($user['roles'])
+                ->setPersonnel($fakeUserData->getPersonnel())
                 ;
             $manager->persist($userAdmin);
             $usersAdmin[] = $userAdmin;

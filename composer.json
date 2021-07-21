@@ -64,6 +64,7 @@
         "friends-of-behat/symfony-extension": "^2.2",
         "friendsofphp/php-cs-fixer": "^2.18",
         "friendsoftwig/twigcs": "^5.0",
+        "fzaninotto/faker": "^1.9",
         "phpmd/phpmd": "^2.9",
         "phpstan/phpstan": "^0.12.84",
         "phpstan/phpstan-deprecation-rules": "^0.12.6",
@@ -116,7 +117,6 @@
             "@auto-scripts"
         ],
         "setup": {
-            "dropDataBase": "php bin/console doctrine:database:drop --force --ansi",
             "createDataBase": "php bin/console doctrine:database:create --ansi",
             "createSchema": "php bin/console doctrine:schema:create --ansi",
             "loadFixture": "php bin/console doctrine:fixtures:load --append --no-interaction --ansi"

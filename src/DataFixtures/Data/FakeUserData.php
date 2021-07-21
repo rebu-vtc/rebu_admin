@@ -2,8 +2,13 @@
 
 namespace App\DataFixtures\Data;
 
+use App\Entity\Personnel;
+use Faker\Generator;
+use Faker\Factory;
 class FakeUserData
 {
+    /** @var Generator */
+    protected $faker;
     /**
      * Admin user data.
      *
@@ -18,7 +23,6 @@ class FakeUserData
             'isVerify' => true,
             'status' => 1, // 1 = vérifié et actif
             'agreeTerms' => true,
-            'type' => 'Administrateur',
         ],
         [
             'id' => 2,
@@ -28,10 +32,12 @@ class FakeUserData
             'isVerify' => true,
             'status' => 1, // 1 = vérifié et actif
             'agreeTerms' => true,
-            'type' => 'Administrateur',
         ],
     ];
 
+    public function __construct() {
+        $this->faker = Factory::create();
+    }
 
     // users data getter
     public function getUsers(): array
@@ -39,5 +45,18 @@ class FakeUserData
         return $this->users;
     }
 
+    public function getPersonnel (): Personnel
+    {
+        $personnel = new Personnel();
+        $personnel
+        ->setFirstName($this->faker->firstName)
+        ->setLastName($this->faker->lastName)
+        ->setDob($this->faker->dateTime())
+        ->setIdNumber($this->faker->shuffleString())
+        ->setFacebookToken($this->faker->shuffleString())
+        ;
+
+        return $personnel;
+    }
 
 }

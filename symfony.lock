@@ -180,6 +180,9 @@
     "friendsoftwig/twigcs": {
         "version": "v5.0.0"
     },
+    "fzaninotto/faker": {
+        "version": "v1.9.2"
+    },
     "jakub-onderka/php-console-color": {
         "version": "v0.2"
     },
